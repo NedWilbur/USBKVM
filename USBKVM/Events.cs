@@ -16,7 +16,7 @@ namespace USBKVM
         // More Info: https://stackoverflow.com/questions/620144/detecting-usb-drive-insertion-and-removal-using-windows-service-and-c-sharp
         internal static void Start()
         {
-            Console.Write("Starting USBHub connect/disconnect event listeners... ");
+            Console.Write("Starting USB listeners... ");
 
             WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
             ManagementEventWatcher insertWatcher = new ManagementEventWatcher(insertQuery);

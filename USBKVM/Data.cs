@@ -16,7 +16,7 @@ namespace USBKVM
 
         internal static void Import()
         {
-            Console.Write("Importing settings... ");
+            Console.Write("Importing Settings.xml... ");
             try
             {
                 XDocument settingsXml = XDocument.Load("Settings.xml");
