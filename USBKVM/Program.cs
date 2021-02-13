@@ -8,9 +8,13 @@ namespace USBKVM
 {
     internal class Program
     {
+        private static IEnumerable<XElement> MonitorSettings { get; set; }
+
         private static void Main(string[] args)
         {
             Console.WriteLine("Hello.");
+
+            ImportSettings();
 
             // start USBHub watchers (insert & remove)
             WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
@@ -28,6 +32,22 @@ namespace USBKVM
             // keep open
             Console.WriteLine("Press any key to close");
             Console.ReadLine();
+        }
+
+        private static void ImportSettings()
+        {
+            Console.WriteLine("Importing settings");
+            try
+            {
+                XDocument settingsXml = XDocument.Load("Settings.xml");
+                MonitorSettings = settingsXml.Root.Elements("Monitors");
+                Console.WriteLine("Settings imported");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         // see https://stackoverflow.com/questions/620144/detecting-usb-drive-insertion-and-removal-using-windows-service-and-c-sharp
