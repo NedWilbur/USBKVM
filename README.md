@@ -17,6 +17,9 @@ I have two computers connected to the same set of monitors. A traditional KVM sw
 - Two machines, connected to the *same* set of monitors but in *different* inputs
    - Example: PC1 is plugged into the `HDMI1` ports on all three monitors, while PC2 is plugged into the `DVI2` ports on all three monitors
    - The number of monitors does not matter. This will work with 1 or 100+ monitors.
+   
+## Download
+See [Releases](https://github.com/NedWilbur/USBKVM/releases)
 
 ## Settings
 The settings can be adjusted in `Settings.xml`. Open this in your favorite file editor.
