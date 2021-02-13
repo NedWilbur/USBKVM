@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Management;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Xml.Linq;
 
 namespace USBKVM
 {
     internal class Program
     {
-        private static string ThisPC { get; } = Environment.MachineName;
-        public static string PC1_Name { get; set; }
-        public static string PC2_Name { get; set; }
-        private static List<string> Monitors { get; set; }
-        private static List<string> PC1_Inputs { get; set; }
-        private static List<string> PC2_Inputs { get; set; }
-
         private static void Main(string[] args)
         {
             Console.WriteLine("Hello.");
 
-            ImportSettings();
+            Data.Import();
 
             // start USBHub watchers (insert & remove)
             WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
@@ -42,28 +31,7 @@ namespace USBKVM
             Console.ReadLine();
         }
 
-        private static void ImportSettings()
-        {
-            Console.WriteLine("Importing settings");
-            try
-            {
-                XDocument settingsXml = XDocument.Load("Settings.xml");
-
-                PC1_Name = settingsXml.Root.Element("PC1").Attribute("Name").Value;
-                PC2_Name = settingsXml.Root.Element("PC2").Attribute("Name").Value;
-
-                Monitors = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("Name").Value).ToList();
-                PC1_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC1_Input").Value).ToList();
-                PC2_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC2_Input").Value).ToList();
-
-                Console.WriteLine("Settings imported");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
+       
 
         // see https://stackoverflow.com/questions/620144/detecting-usb-drive-insertion-and-removal-using-windows-service-and-c-sharp
         private static void DeviceInsertedEvent(object sender, EventArrivedEventArgs e)
@@ -89,19 +57,19 @@ namespace USBKVM
         {
             List<string> targetPcInputs = null;
 
-            if (ThisPC == PC1_Name && USBConnected)
-                targetPcInputs = PC1_Inputs;
-            else if (ThisPC == PC1_Name && !USBConnected)
-                targetPcInputs = PC2_Inputs;
-            else if (ThisPC == PC2_Name && USBConnected)
-                targetPcInputs = PC2_Inputs;
-            else if (ThisPC == PC2_Name && !USBConnected)
-                targetPcInputs = PC1_Inputs;
+            if (Data.ThisPC == Data.PC1_Name && USBConnected)
+                targetPcInputs = Data.PC1_Inputs;
+            else if (Data.ThisPC == Data.PC1_Name && !USBConnected)
+                targetPcInputs = Data.PC2_Inputs;
+            else if (Data.ThisPC == Data.PC2_Name && USBConnected)
+                targetPcInputs = Data.PC2_Inputs;
+            else if (Data.ThisPC == Data.PC2_Name && !USBConnected)
+                targetPcInputs = Data.PC1_Inputs;
             else
                 throw new Exception("Unable to find matching PC name. Please check the Settings.xml");
 
-            for (int i = 0; i < Monitors.Count; i++)
-                RunControlMyMonitor(Monitors[i], targetPcInputs[i]);
+            for (int i = 0; i < Data.Monitors.Count; i++)
+                RunControlMyMonitor(Data.Monitors[i], targetPcInputs[i]);
         }
     }
 }
