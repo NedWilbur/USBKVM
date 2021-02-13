@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace USBKVM
 {
-    public static class Data
+    internal static class Data
     {
         internal static string ThisPC { get; } = Environment.MachineName;
         internal static string PC1_Name { get; private set; }
@@ -16,7 +16,7 @@ namespace USBKVM
 
         internal static void Import()
         {
-            Console.WriteLine("Importing settings");
+            Console.Write("Importing settings... ");
             try
             {
                 XDocument settingsXml = XDocument.Load("Settings.xml");
@@ -28,12 +28,13 @@ namespace USBKVM
                 PC1_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC1_Input").Value).ToList();
                 PC2_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC2_Input").Value).ToList();
 
-                Console.WriteLine("Settings imported");
+                Console.Write("Done!" + Environment.NewLine);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                Console.Write("Error!" + Environment.NewLine + e);
+                Console.ReadKey();
+                Environment.Exit(-1);
             }
         }
     }

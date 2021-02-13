@@ -1,6 +1,6 @@
 ﻿<Monitors>
   <PC1 Name="DESKTOP"></PC1>
-  <PC1 Name="NEDLAPTOP"></PC1>
+  <PC2 Name="NEDLAPTOP"></PC2>
   <Monitor Name="PVJVW4CI15LL" PC1_Input="17" PC2_Input="16"></Monitor>
   <Monitor Name="VVF203600230" PC1_Input="15" PC2_Input="17"></Monitor>
   <Monitor Name="PVJVW4CI1E7L" PC1_Input="17" PC2_Input="16"></Monitor>
