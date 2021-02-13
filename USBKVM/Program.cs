@@ -23,6 +23,7 @@ namespace USBKVM
             Events.Start();
             
             Console.WriteLine("USBKVM Running");
+            Console.WriteLine("See docs to run in tray");
             Console.WriteLine("Press any key to close" + Environment.NewLine);
             Exit(); // keeps it open
         }

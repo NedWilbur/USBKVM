@@ -88,6 +88,7 @@ namespace USBKVM
             if (error)
             {
                 Console.WriteLine("ERROR: Settings invalid. Fix Settings.xml and run again");
+                Console.WriteLine("For help, visit: https://github.com/NedWilbur/USBKVM");
                 Program.Exit();
             }
         }
