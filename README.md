@@ -9,7 +9,7 @@ USBKVM watches for USBHub connect/disconnects from the machine. When detected, i
 For example, if the USB switch is toggled from PC1 to PC2, USBKVM will switch all configured monitors to the set inputs for PC2. Toggle the USB switch back to PC1 and all monitors will be set back to PC1's configured inputs.
 
 ## Why
-I have two computers connected to the same set of monitors. A traditional KVM switch that supports USB and 3+ video outputs is stupid expensive. With this tool, we can make a [Cheap USB switch](https://www.amazon.com/gp/product/B07XDT6K82) to do the same thing (minus hot-key switching). 
+I have two computers connected to the same set of monitors. A traditional KVM switch that supports USB and 3+ video outputs are stupid expensive. With USBKVM, we can make a [Cheap USB switch](https://www.amazon.com/gp/product/B07XDT6K82) do the same thing (minus hot-key switching). 
 
 ## Requirements
 - USB Hub Switch ([Example](https://www.amazon.com/gp/product/B07XDT6K82))
@@ -43,7 +43,7 @@ Add/Remove `<Monitor Name="MONITOR-NAME" PC1_Input="00" PC2_Input="00"></Monitor
 ```
 
 ## Using
-Once configured, run `USBKVM.exe`. If configured properly, pressing the switch button on your USB switch will trigger USBKVM to automatically switch all monitor inputs the the machine the USB device is currently connect to. It can be ran on only one of the two machines, but works better when ran on both simutaniously (incase one machine goes to sleep/turns off). It is also recommended to have this run on startup (create a shortcut to the app and place it in the `shell:startup` folder.
+Once configured, run `USBKVM.exe`. If configured properly, pressing the switch button on your USB switch will trigger USBKVM to automatically switch all monitor inputs to the machine the USB device is currently connected to. It can be run on only one of the two machines but works better when run on both simultaneously (incase one machine goes to sleep/turns off). It is also recommended to have this run on startup (create a shortcut to the app and place it in the `shell:startup` folder.
 
 ## Run In Tray
-Since this is a console application, I cannot make it minize to tray. However, you can use other third party tools to acheive this. Personally, I use [RBTray](https://github.com/benbuck/rbtray).
+Since this is a console application, I cannot make it minimize to tray. However, you can use other third-party tools to achieve this. I use [RBTray](https://github.com/benbuck/rbtray).
