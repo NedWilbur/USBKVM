@@ -37,7 +37,7 @@ namespace USBKVM
             if (LastEventStopwatch.ElapsedMilliseconds <= MinimumTimeBetweenEvents) return;
             LastEventStopwatch.Restart();
 
-            Console.WriteLine("===> USBHub Connected");
+            Console.WriteLine("USBHub Connected");
             SwitchToPC(true);
         }
 
@@ -46,7 +46,7 @@ namespace USBKVM
             if (LastEventStopwatch.ElapsedMilliseconds <= MinimumTimeBetweenEvents) return;
             LastEventStopwatch.Restart();
 
-            Console.WriteLine("=/=> USBHub Disconnected");
+            Console.WriteLine("USBHub Disconnected");
             SwitchToPC(false);
         }
 
