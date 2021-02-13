@@ -50,14 +50,7 @@ namespace USBKVM
             SwitchToPC(false);
         }
 
-        private static void RunControlMyMonitor(string monitor, string input)
-        {
-            Console.Write($"\tSwitching '{monitor}' to '{input}'... ");
-            Process process = new Process { StartInfo = { FileName = "ControlMyMonitor.exe", Arguments = $"/SetValueIfNeeded {monitor} 60 {input}" } };
-            process.Start();
-            Console.Write("Done!" + Environment.NewLine);
-
-        }
+       
 
         private static void SwitchToPC(bool USBConnected)
         {
@@ -75,7 +68,11 @@ namespace USBKVM
                 throw new Exception("Unable to find matching PC name. Please check the Settings.xml");
 
             for (int i = 0; i < Data.Monitors.Count; i++)
-                RunControlMyMonitor(Data.Monitors[i], targetPcInputs[i]);
+            {
+                Console.Write($"\tSwitching '{Data.Monitors[i]}' to '{targetPcInputs[i]}'... ");
+                Program.RunControlMyMonitor($"/SetValueIfNeeded {Data.Monitors[i]} 60 {targetPcInputs[i]}");
+                Console.Write("Done!" + Environment.NewLine);
+            }
         }
     }
 }

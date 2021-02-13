@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -29,12 +30,65 @@ namespace USBKVM
                 PC2_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC2_Input").Value).ToList();
 
                 Console.Write("Done!" + Environment.NewLine);
+
+                ValidateMonitorNames();
             }
             catch (Exception e)
             {
                 Console.Write("Error!" + Environment.NewLine + e);
-                Console.ReadKey();
-                Environment.Exit(-1);
+                Program.Exit();
+            }
+        }
+
+        private static void ValidateMonitorNames()
+        {
+            bool error = false;
+
+            // Compare monitors in Settings.xml versus detected monitors
+            Program.RunControlMyMonitor("/smonitors DetectedMonitors.txt", true);
+            string detectedMonitors = File.ReadAllText("DetectedMonitors.txt");
+            foreach (string monitor in Monitors)
+            {
+                if (detectedMonitors.Contains(monitor)) 
+                    continue;
+
+                error = true;
+                Console.WriteLine($"ERROR: Monitor '{monitor}' not detected!");
+            }
+
+            // Monitor name error
+            if (error)
+            {
+                Console.WriteLine("Ensure all monitors in Settings.xml are using unique names from the monitor's detected below:" + Environment.NewLine);
+                Console.WriteLine("--------------- DETECTED MONITORS ---------------");
+                Console.WriteLine(detectedMonitors);
+            }
+
+            // Validate all input values are numbers
+            int i;
+            foreach (string input in PC1_Inputs)
+            {
+                if (int.TryParse(input, out i))
+                    continue;
+
+                error = true;
+                Console.WriteLine($"ERROR: '{input}' in 'PC1_Inputs' is not a number.");
+            }
+
+            foreach (string input in PC2_Inputs)
+            {
+                if (int.TryParse(input, out i))
+                    continue;
+
+                error = true;
+                Console.WriteLine($"ERROR: '{input}' in 'PC2_Inputs' is not a number.");
+            }
+
+            // If Error
+            if (error)
+            {
+                Console.WriteLine("ERROR: Settings invalid. Fix Settings.xml and run again");
+                Program.Exit();
             }
         }
     }

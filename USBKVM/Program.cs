@@ -24,7 +24,22 @@ namespace USBKVM
             
             Console.WriteLine("USBKVM Running");
             Console.WriteLine("Press any key to close" + Environment.NewLine);
-            Console.ReadKey(); // keep open
+            Exit(); // keeps it open
+        }
+
+        internal static void RunControlMyMonitor(string args, bool waitForExit = false)
+        {
+            Process process = new Process { StartInfo = { FileName = "ControlMyMonitor.exe", Arguments = args,  } };
+            process.Start();
+
+            if (waitForExit)
+                process.WaitForExit();
+        }
+
+        internal static void Exit()
+        {
+            Console.ReadKey();
+            Environment.Exit(-1);
         }
     }
 }
