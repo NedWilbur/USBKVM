@@ -1,7 +1,7 @@
 # USBKVM
 This is an app that turns a basic USB switch into a full automatic monitor switch (minus 'hotkey' switching).
 
-This script heavily utilizes [ControlMyMonitor](https://www.nirsoft.net/utils/control_my_monitor.html) to switch the inputs programmatically. USBKVM simply adds logic around it.
+USBKVM heavily utilizes [ControlMyMonitor](https://www.nirsoft.net/utils/control_my_monitor.html) to switch the inputs programmatically. USBKVM simply adds logic around it.
 
 ## How does it work
 USBKVM watches for USBHub connect/disconnects from the machine. When detected, it will switch all configured monitors to the desired inputs. 
@@ -30,17 +30,17 @@ Add/Remove `<Monitor Name="MONITOR-NAME" PC1_Input="00" PC2_Input="00"></Monitor
 
 ### Triple Monitor Example
 ```xml
-<Monitors>
+<Settings>
   <PC1 Name="DESKTOP"></PC1>
   <PC2 Name="NEDLAPTOP"></PC2>
   <Monitor Name="PVJVW4CI15LL" PC1_Input="17" PC2_Input="16"></Monitor>
   <Monitor Name="VVF203600230" PC1_Input="15" PC2_Input="17"></Monitor>
   <Monitor Name="PVJVW4CI1E7L" PC1_Input="17" PC2_Input="16"></Monitor>
-</Monitors>
+</Settings>
 ```
 
 ## Using
-Once configured, run `USBKVM.exe`. If configured properly, pressing the switch button on your USB switch will trigger USBKVM to automatically switch all monitor inputs the the machine the USB device is currently connect to.
+Once configured, run `USBKVM.exe`. If configured properly, pressing the switch button on your USB switch will trigger USBKVM to automatically switch all monitor inputs the the machine the USB device is currently connect to. It can be ran on only one of the two machines, but works better when ran on both simutaniously (incase one machine goes to sleep/turns off). It is also recommended to have this run on startup (create a shortcut to the app and place it in the `shell:startup` folder.
 
-It is recommend to run this script on both PC1 and PC2 at the same time but can still work if only running on one.
-It is also recommended to have this run on startup (create a shortcut to the script and place in `shell:startup`
+## Run In Tray
+Since this is a console application, I cannot make it minize to tray. However, you can use other third party tools to acheive this. Personally, I use [RBTray](https://github.com/benbuck/rbtray).
