@@ -6,10 +6,10 @@ USBKVM heavily utilizes [ControlMyMonitor](https://www.nirsoft.net/utils/control
 ## How does it work
 USBKVM watches for USBHub connect/disconnects from the machine. When detected, it will switch all configured monitors to the desired inputs. 
 
-For example, if the USB switch is switch from PC1 to PC2, USBKVM will switch all configured monitors to the set inputs for PC2. Switch the USB switch back to PC1 and all monitors will be set back to PC1.
+For example, if the USB switch is toggled from PC1 to PC2, USBKVM will switch all configured monitors to the set inputs for PC2. Toggle the USB switch back to PC1 and all monitors will be set back to PC1's configured inputs.
 
 ## Why
-I have two computers connected to the same set of monitors. A traditional KVM switch that supports USB and 3+ video outputs is stupid expensive. With this tool, we can turn a [$20 USB switch](https://www.amazon.com/gp/product/B07XDT6K82) to do the same thing. 
+I have two computers connected to the same set of monitors. A traditional KVM switch that supports USB and 3+ video outputs is stupid expensive. With this tool, we can make a [Cheap USB switch](https://www.amazon.com/gp/product/B07XDT6K82) to do the same thing (minus hot-key switching). 
 
 ## Requirements
 - USB Hub Switch ([Example](https://www.amazon.com/gp/product/B07XDT6K82))
