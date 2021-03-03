@@ -14,6 +14,7 @@ namespace USBKVM
         internal static List<string> Monitors { get; private set; }
         internal static List<string> PC1_Inputs { get; private set; }
         internal static List<string> PC2_Inputs { get; private set; }
+        internal static bool SwitchOnStart { get; private set; }
 
         internal static void Import()
         {
@@ -28,6 +29,8 @@ namespace USBKVM
                 Monitors = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("Name").Value).ToList();
                 PC1_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC1_Input").Value).ToList();
                 PC2_Inputs = settingsXml.Root.Elements("Monitor").Select(monitor => monitor.Attribute("PC2_Input").Value).ToList();
+
+                SwitchOnStart = bool.Parse(settingsXml.Root.Element("SwitchOnStart").Attribute("value").Value);
 
                 Console.Write("Done!" + Environment.NewLine);
 

@@ -30,6 +30,8 @@ namespace USBKVM
 
             LastEventStopwatch.Start();
             Console.Write("Done!" + Environment.NewLine);
+
+            if (Data.SwitchOnStart) SwitchToPC(true);
         }
 
         private static void DeviceInsertedEvent(object sender, EventArrivedEventArgs e)
@@ -49,8 +51,6 @@ namespace USBKVM
             Console.WriteLine("USBHub Disconnected");
             SwitchToPC(false);
         }
-
-       
 
         private static void SwitchToPC(bool USBConnected)
         {
