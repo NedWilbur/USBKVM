@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Management;
+using System.Reflection.Metadata.Ecma335;
 
 namespace USBKVM
 {
@@ -30,8 +31,6 @@ namespace USBKVM
 
             LastEventStopwatch.Start();
             Console.Write("Done!" + Environment.NewLine);
-
-            if (Data.SwitchOnStart) SwitchToPC(true);
         }
 
         private static void DeviceInsertedEvent(object sender, EventArrivedEventArgs e)
@@ -52,9 +51,9 @@ namespace USBKVM
             SwitchToPC(false);
         }
 
-        private static void SwitchToPC(bool USBConnected)
+        internal static void SwitchToPC(bool USBConnected)
         {
-            List<string> targetPcInputs = null;
+            List<string> targetPcInputs;
 
             if (Data.ThisPC == Data.PC1_Name && USBConnected)
                 targetPcInputs = Data.PC1_Inputs;

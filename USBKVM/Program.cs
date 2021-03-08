@@ -27,6 +27,13 @@ namespace USBKVM
             Console.WriteLine("See docs to run in tray");
             Console.WriteLine("Press any key to close" + Environment.NewLine);
 
+
+            if (Data.SwitchOnStart)
+            {
+                Console.WriteLine("Switch on start enabled, switching monitors if needed");
+                Events.SwitchToPC(true);
+            }
+
             Exit(); // keeps it open
         }
 
